@@ -59,6 +59,8 @@ void TD_Init(void)             // Called once at startup
     FIFORESET = 0x82;  SYNCDELAY;   // Reset EP2
     FIFORESET = 0x88;  SYNCDELAY;   // Reset EP8
     FIFORESET = 0x00;  SYNCDELAY;   // Resume normal operation.
+	
+	EP1OUTBC = 0x04; SYNCDELAY;		// Arm EP1 buffer
     // Arm EP2 buffers
     OUTPKTEND = 0x82; SYNCDELAY;    // Arm First buffer
     OUTPKTEND = 0x82; SYNCDELAY;    // Arm Second buffer
