@@ -33,7 +33,7 @@ IN THE SOFTWARE.
 
 #define MAX_CMD_LENGTH	20
 
-#define VERSION 	"1.01 beta"
+#define VERSION 	"1.02 beta"
 
 BYTE mode = MODE_COM;
 WORD eeprom_addr;
@@ -343,14 +343,16 @@ void process_command(void){
 	}
 	
 	if(string_match("flash status",command_buf)){
-		FPGA_POWER = 0;
+		//FPGA_POWER = 0;
+		FPGA_PROG = 0;
 		OED = 0x73;		// Configure MOSI, CCLK, CSO_B, PS_ON, PROG as outputs
 		process_flash_status();
 		processed = 1;
 	}
 	
 	if(string_match("flash id",command_buf)){
-		FPGA_POWER = 0;
+		//FPGA_POWER = 0;
+		FPGA_PROG = 0;
 		OED = 0x73;		// Configure MOSI, CCLK, CSO_B, PS_ON, PROG as outputs
 		process_flash_id();
 		processed = 1;

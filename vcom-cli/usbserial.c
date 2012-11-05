@@ -79,8 +79,11 @@ void usb_serial_init(void)              // Called once at startup
     FIFOPINPOLAR = 0x3F; SYNCDELAY;  // slave FIFO interface pins as active high
     EP6AUTOINLENH = 0x02; SYNCDELAY; // auto commit data in 512-byte chunks
     EP6AUTOINLENL = 0x00; SYNCDELAY;
-	IOD = 0xFF;			// Enable PS_ON and disable PROG_B 
-	OED = 0x73;			// Configure MOSI, CCLK, CSO_B, PS_ON, PROG as outputs
+	//IOD = 0xFF;			// Enable PS_ON and disable PROG_B 
+	//IOD = 0x71;			// Enable PS_ON and disable PROG_B 
+	//OED = 0x73;			// Configure MOSI, CCLK, CSO_B, PS_ON, PROG as outputs
+	IOD = 0x03;			// Enable PS_ON and disable PROG_B 
+	OED = 0x03;			// Configure PS_ON and PROG as outputs
 }
 
 //-----------------------------------------------------------------------------
@@ -106,15 +109,20 @@ void activity(void){ // Called repeatedly while the device is idle
 //	process_line_coding();
 	switch(mode){
 		case MODE_COM:
+			FPGA_PROG = 1;
 			//nothing to do here
 		break;
 		case MODE_CLI:
+			IOD = 0x73;	// Enable PS_ON and disable PROG_B 
+			OED = 0x73;	// Configure MOSI, CCLK, CSO_B, PS_ON, PROG as outputs
 			process_cli();
 		break;
 		case MODE_EEPROM_WRITE:
 			process_eeprom_write();
 		break;
 		case MODE_FLASH_WRITE:
+			IOD = 0x71;	// Enable PS_ON and PROG_B 
+			OED = 0x73;	// Configure MOSI, CCLK, CSO_B, PS_ON, PROG as outputs
 			process_flash_write();
 		break;
 	}
