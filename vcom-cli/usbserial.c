@@ -113,8 +113,6 @@ void activity(void){ // Called repeatedly while the device is idle
 			//nothing to do here
 		break;
 		case MODE_CLI:
-			IOD = 0x73;	// Enable PS_ON and disable PROG_B 
-			OED = 0x73;	// Configure MOSI, CCLK, CSO_B, PS_ON, PROG as outputs
 			process_cli();
 		break;
 		case MODE_EEPROM_WRITE:

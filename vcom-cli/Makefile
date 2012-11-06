@@ -74,3 +74,9 @@ spi.rel: spi.c spi.h
 clean:
 	make -C ${LIBDIR} clean
 	rm -f *.lst *.asm *.sym *.rel *.mem *.map *.rst *.hex *.iic *.lk *.omf *.cdb
+
+release: usbserial.iic
+	copy usbserial.iic ready_for_download
+	make -C ${LIBDIR} clean
+	rm -f *.lst *.asm *.sym *.rel *.mem *.map *.rst *.hex *.iic *.lk *.omf *.cdb
+

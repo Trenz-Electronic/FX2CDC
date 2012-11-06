@@ -33,7 +33,7 @@ IN THE SOFTWARE.
 
 #define MAX_CMD_LENGTH	20
 
-#define VERSION 	"1.02 beta"
+#define VERSION 	"1.03 beta"
 
 BYTE mode = MODE_COM;
 WORD eeprom_addr;
@@ -227,10 +227,10 @@ void process_flash_id(void){
 	msg[11] = hex_char_h(uid);
 	msg[12] = hex_char_l(uid);
 	print_ep6_string(msg);
-	if((mid == 0xEF) && (did == 0x40) && (uid == 0x17))
-		print_ep6_string("W25Q64FV");
-	if((mid == 0x20) && (did == 0x20) && (uid == 0x16))
-		print_ep6_string("M25P32");
+	//if((mid == 0xEF) && (did == 0x40) && (uid == 0x17))
+	//	print_ep6_string("W25Q64FV");
+	//if((mid == 0x20) && (did == 0x20) && (uid == 0x16))
+	//	print_ep6_string("M25P32");
 }
 
 void process_flash_erase(void){
@@ -359,21 +359,24 @@ void process_command(void){
 	}
 	
 	if(string_match("flash erase",command_buf)){
-		FPGA_POWER = 0;
+		//FPGA_POWER = 0;
+		FPGA_PROG = 0;
 		OED = 0x73;		// Configure MOSI, CCLK, CSO_B, PS_ON, PROG as outputs
 		process_flash_erase();
 		processed = 1;
 	}
 	
 	if(string_match("flash unlock",command_buf)){
-		FPGA_POWER = 0;
+		//FPGA_POWER = 0;
+		FPGA_PROG = 0;
 		OED = 0x73;		// Configure MOSI, CCLK, CSO_B, PS_ON, PROG as outputs
 		process_flash_unlock();
 		processed = 1;
 	}
 	
 	if(string_match("flash read",command_buf)){
-		FPGA_POWER = 0;
+		//FPGA_POWER = 0;
+		FPGA_PROG = 0;
 		OED = 0x73;		// Configure MOSI, CCLK, CSO_B, PS_ON, PROG as outputs
 		process_flash_read();
 		processed = 1;
